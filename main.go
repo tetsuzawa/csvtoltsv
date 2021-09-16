@@ -36,14 +36,16 @@ func run() (string, error) {
 
 func toString(header []string, df [][]string) string {
 	builder := &strings.Builder{}
-	for _, row := range df {
+	for rowNum, row := range df {
 		for colNum, col := range row {
 			builder.WriteString(fmt.Sprintf("%s:%s", header[colNum], col))
 			if colNum != len(row)-1 {
 				builder.WriteString("\t")
 			}
 		}
-		builder.WriteString("\n")
+		if rowNum != len(df)-1 {
+			builder.WriteString("\n")
+		}
 	}
 	return builder.String()
 }
